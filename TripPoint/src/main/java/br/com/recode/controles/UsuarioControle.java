@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -50,7 +52,7 @@ public class UsuarioControle {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody UsuarioCorpoRequisicaoPost usuarioCorpoRequisicaoPost){
+	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody @Valid UsuarioCorpoRequisicaoPost usuarioCorpoRequisicaoPost){
 		return new ResponseEntity<>(usuarioServico.cadastrarUsuario(usuarioCorpoRequisicaoPost),HttpStatus.CREATED);
 	}
 	
