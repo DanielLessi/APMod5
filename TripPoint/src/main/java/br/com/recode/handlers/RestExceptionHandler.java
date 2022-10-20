@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import br.com.recode.excecoes.BadRequestException;
 import br.com.recode.excecoes.BadRequestExceptionDetails;
 import br.com.recode.excecoes.ValidationExceptionDetails;
-import lombok.extern.log4j.Log4j2;
 
 @ControllerAdvice
-@Log4j2
 public class RestExceptionHandler {
 	@ExceptionHandler(BadRequestException.class)
 	public ResponseEntity<BadRequestExceptionDetails> handlerBadRequestException(BadRequestException badRequestException){
@@ -44,12 +42,10 @@ public class RestExceptionHandler {
 				.timestamp(LocalDateTime.now())
 				.status(HttpStatus.BAD_REQUEST.value())
 				.title("Bad Request Exception, Campos Inválidos")
-				.details(exception.getMessage())
+				.details("Verifique os campos com erro no fields")
 				.developerMessage(exception.getClass().getName())
 				.fields(fields)
 				.fieldsMessage(fieldsMessage)
 				.build(), HttpStatus.BAD_REQUEST);
-		
-				
 	}
 }
