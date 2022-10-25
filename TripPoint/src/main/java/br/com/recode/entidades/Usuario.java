@@ -1,26 +1,81 @@
 package br.com.recode.entidades;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.extern.log4j.Log4j2;
+@Log4j2
 @Data
-@Builder
+@Builder	
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Usuario {
+@SuppressWarnings("serial")
+public class Usuario implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
+	private String username;
+	@Column(nullable = false)
+	private String password;
+	@Column(nullable = false)
 	private String nome;
+	@Column(nullable = false)
 	private String sobrenome;
-	private String email;
-	private String senha;	
+	@Column(nullable = false)
+	private String authorities;
+	
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return Arrays.stream(authorities.split(","))
+				.map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());
+	}
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
+	@Override
+	public String getUsername() {
+		return this.username;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	
 }

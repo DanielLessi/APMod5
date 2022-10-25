@@ -1,0 +1,29 @@
+<!-- CardDestino -->
+<div th:fragment="cardDestino(
+	id,
+	nome,
+	preco,
+	descricao
+	)"
+	class="card border-secondary m-1 p-1" style="width: 300px;">
+    
+  <div class="card-body">
+  	<img alt="Image" class="card-img-top" height="180px" width="286px" th:src="|/page/imagem/${id}|" />
+    <h4 class="card-title" style="font-weight: bold" th:text="${nome}">São Paulo</h4>
+    <text class="card-title">a partir de: </text>
+    <!--
+    <text class="card-title" style="text-decoration: line-through; color:gray">R$500,00</text>
+    -->
+    <h4 class="card-title" style="font-weight: bold" th:text="'R$ ' + ${preco}+'0'">R$350,00</h4>
+    <p class="card-text" th:text="${descricao}">descrição</p>
+    <ul class="list-group list-group-flush">
+	    <li class="list-group-item align-text-bottom"><img src="../../../logos/voo.png">    Voo ida e volta</li>
+	    <li class="list-group-item align-text-bottom"><img src="../../../logos/hotel.png">    Hospedagem</li>
+	    <li class="list-group-item align-text-bottom"><img src="../../../logos/cafe.png">    Café da manhã</li>
+ 	 </ul>
+ 	 <div class="d-grid gap-2">
+    	<button type="button" href="#" class="btn btn-outline-dark">Comprar</button>
+ 	 </div>
+  </div>
+</div>
+<!-- CardDestino -->

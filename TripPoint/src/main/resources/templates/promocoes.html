@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head th:replace="~{fragmentos/_header :: header('TripPoint - Home')}"></head>
+
+<body>
+	<nav th:replace="~{fragmentos/_navbar :: navbar}"></nav>
+	<div class="container-sm">
+		<!--- Títulos Pacotes -->
+		<div class="container-fluid padding">
+			<div class="row welcome text-center">
+				<div class="col-12">
+					<h1 class="display-4">Pacotes em Promoção.</h1>
+				</div>
+				<hr />
+				<div class="col-12">
+					<p class="lead">
+						Uma seleção de nossos pacotes favoritos com descontos imperdíveis.
+					</p>
+				</div>
+				<div class="row">
+					<div th:replace="~{fragmentos/_cardPromocao :: cardDestino(
+						'https://i.ibb.co/pdGQDms/SaoPaulo.png',
+						'São Paulo',
+						'720,00',
+						'500,00',
+						'O turismo em São Paulo é tão cosmopolita quanto a cidade. Há muitos shows, espetáculos, parques, museus, shoppings e muito mais.'
+						)}"></div>
+					<div th:replace="~{fragmentos/_cardPromocao :: cardDestino(
+						'https://i.ibb.co/CzWsy4Q/Rio.jpg',
+						'Rio de Janeiro',
+						'800,00',
+						'400,00',
+						'A Cidade do Rio de Janeiro é o principal centro turístico do Brasil, cenários que tornaram-se alguns dos principais cartões postais do País. '
+						)}"></div>
+					<div th:replace="~{fragmentos/_cardPromocao :: cardDestino(
+						'https://i.ibb.co/D5wpT3r/Minas.jpg',
+						'Minas Gerais',
+						'480,00',
+						'320,00',
+						'Conhecida como a terra do pão de queijo, da simpatia e dos causos, o turismo em Minas Gerais está repleto de cidades históricas.'
+						)}"></div>
+					<div th:replace="~{fragmentos/_cardPromocao :: cardDestino(
+						'https://i.ibb.co/JHxK9QQ/Bahia.png',
+						'Bahia',
+						'680,00',
+						'500,00',
+						'O Estado da Bahia oferecem conforto e contato com a natureza, mas ainda existem praias rústicas e inexploradas à espera dos aventureiros.'
+						)}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--- Fim Títulos Pacotes -->
+	<footer th:replace="~{fragmentos/_footer :: footer}"></footer>
+</body>
+
+</html>

@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.recode.entidades.Destino;
-import br.com.recode.excecoes.BadRequestException;
 import br.com.recode.repositorio.DestinoRepositorio;
-import br.com.recode.requisicoes.DestinoCorpoRequisicaoPost;
-import br.com.recode.requisicoes.DestinoCorpoRequisicaoPut;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,42 +26,22 @@ public class DestinoServico{
 		return destinoRepositorio.findAll(pageable);
 	}
 	
-	public List<Destino> buscarPorNome(String nome){
-		return destinoRepositorio.findByNome(nome);
-	}
-	
-	public Destino buscarPorIdOuEnviaMensagemErro(long id){
-		return destinoRepositorio.findById(id)
-				.orElseThrow(() -> new BadRequestException("Destino não encontrado"));
-				
+	public Destino buscarPorId(long id){
+		return destinoRepositorio.getOne(id);
 	}
 	
 	@Transactional
-	public Destino cadastrarDestino(DestinoCorpoRequisicaoPost usuarioCorpoRequisicaoPost) {
-		Destino destino = Destino.builder()
-				.nome(usuarioCorpoRequisicaoPost.getNome())
-				.pais(usuarioCorpoRequisicaoPost.getPais())
-				.continente(usuarioCorpoRequisicaoPost.getContinente())
-				.preco(usuarioCorpoRequisicaoPost.getPreco())
-				.build();		
+	public Destino cadastrarDestino(Destino destino) {	
 		return destinoRepositorio.save(destino);
 	}
 	
 	public void deletarDestino(long id){
-		destinoRepositorio.delete(buscarPorIdOuEnviaMensagemErro(id));
+		destinoRepositorio.delete(buscarPorId(id));
 	}
 	
-	public void alterarDestino(DestinoCorpoRequisicaoPut usuarioCorpoRequisicaoPut){
-		Destino destinoAtual = buscarPorIdOuEnviaMensagemErro(usuarioCorpoRequisicaoPut.getId());
-		Destino destinoAlterado = Destino.builder()
-				.id(usuarioCorpoRequisicaoPut.getId())
-				.nome(usuarioCorpoRequisicaoPut.getNome())
-				.pais(usuarioCorpoRequisicaoPut.getPais())
-				.continente(usuarioCorpoRequisicaoPut.getContinente())
-				.preco(usuarioCorpoRequisicaoPut.getPreco())
-				.build();
+	public Destino atualizarDestino(Destino destino){
+		destinoRepositorio.delete(buscarPorId(destino.getId()));
+		return destinoRepositorio.save(destino);
 		
-		destinoAlterado.setId(destinoAtual.getId());
-		destinoRepositorio.save(destinoAlterado);
 	}
 }
